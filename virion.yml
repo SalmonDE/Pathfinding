@@ -1,0 +1,5 @@
+name: Pathfinding
+antigen: salmonde\pathfinding
+author: SalmonDE
+version: 0.1.0
+api: 3.8.0
