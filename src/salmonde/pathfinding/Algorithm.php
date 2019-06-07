@@ -88,8 +88,4 @@ abstract class Algorithm {
 	abstract public function tick(): void;
 
 	abstract public function isFinished(): bool;
-
-	abstract public function set3D(): void;
-
-	abstract public function set2D(): void;
 }

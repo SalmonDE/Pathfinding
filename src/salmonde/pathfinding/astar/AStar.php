@@ -8,6 +8,8 @@ use pocketmine\level\Level;
 use pocketmine\math\Vector3;
 use salmonde\pathfinding\Algorithm;
 use salmonde\pathfinding\PathResult;
+use salmonde\pathfinding\astar\selector\NeighbourSelector;
+use salmonde\pathfinding\astar\selector\NeighbourSelectorXYZ;
 use function abs;
 
 class AStar extends Algorithm {
@@ -21,7 +23,7 @@ class AStar extends Algorithm {
 
 	public function __construct(Level $world, Vector3 $startPos, Vector3 $targetPos){
 		parent::__construct($world, Node::fromVector3($startPos), Node::fromVector3($targetPos));
-		$this->set3D();
+		$this->neighbourSelector = new NeighbourSelectorXYZ();
 		$this->costCalculator = new DefaultCostCalculator();
 	}
 
@@ -51,14 +53,10 @@ class AStar extends Algorithm {
 		$this->neighbourSelector = $neighbourSelector;
 	}
 
-	public function set3D(): void{
-		$this->setNeighbourSelector(new NeighbourSelector3D());
 	public function getCostCalculator(): CostCalculator{
 		return $this->costCalculator;
 	}
 
-	public function set2D(): void{
-		$this->setNeighbourSelector(new NeighbourSelector2D());
 	public function setCostCalculator(CostCalculator $costCalculator): void{
 		$this->costCalculator = $costCalculator;
 	}

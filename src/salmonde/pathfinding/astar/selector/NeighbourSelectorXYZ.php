@@ -1,11 +1,11 @@
 <?php
 declare(strict_types = 1);
 
-namespace salmonde\pathfinding\astar;
+namespace salmonde\pathfinding\astar\selector;
 
 use pocketmine\block\Block;
 
-class NeighbourSelector3D implements NeighbourSelector {
+class NeighbourSelectorXYZ implements NeighbourSelector {
 
 	public function getNeighbours(Block $block): array{
 		return $block->getAllSides();
