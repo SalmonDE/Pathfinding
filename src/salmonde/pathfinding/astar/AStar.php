@@ -17,10 +17,12 @@ class AStar extends Algorithm {
 	private $closedList;
 
 	private $neighbourSelector;
+	private $costCalculator;
 
 	public function __construct(Level $world, Vector3 $startPos, Vector3 $targetPos){
 		parent::__construct($world, Node::fromVector3($startPos), Node::fromVector3($targetPos));
 		$this->set3D();
+		$this->costCalculator = new DefaultCostCalculator();
 	}
 
 	public function reset(): void{
@@ -51,10 +53,14 @@ class AStar extends Algorithm {
 
 	public function set3D(): void{
 		$this->setNeighbourSelector(new NeighbourSelector3D());
+	public function getCostCalculator(): CostCalculator{
+		return $this->costCalculator;
 	}
 
 	public function set2D(): void{
 		$this->setNeighbourSelector(new NeighbourSelector2D());
+	public function setCostCalculator(CostCalculator $costCalculator): void{
+		$this->costCalculator = $costCalculator;
 	}
 
 	public function setStartPos(Vector3 $startPos): void{
@@ -96,7 +102,7 @@ class AStar extends Algorithm {
 			$inOpenList = $this->openList->hasKey($neighbourHash);
 			$neighbourNode = $inOpenList ? $this->openList->get($neighbourHash) : Node::fromVector3($neighbourBlock);
 
-			$cost = CostCalculator::getCost($neighbourBlock);
+			$cost = $this->costCalculator->getCost($neighbourBlock);
 			if(!$inOpenList or $currentNode->getG() + $cost < $neighbourNode->getG()){
 				$neighbourNode->setG($currentNode->getG() + $cost);
 				$neighbourNode->setH($this->calculateEstimatedCost($neighbourBlock));

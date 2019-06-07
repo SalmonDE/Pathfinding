@@ -7,7 +7,7 @@ use pocketmine\block\Block;
 
 class CostCalculator {
 
-	static public function getCost(Block $block): float{
+	public function getCost(Block $block): float{
 		return 1.0;
 	}
 }
