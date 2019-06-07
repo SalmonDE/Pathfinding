@@ -21,7 +21,7 @@ class Pathfinder {
 	private $startTime;
 	private $timeout;
 
-	public function __construct(Level $world, Vector3 $startPos, Vector3 $targetPos, float $timeout = 1.0, int $maxIterations = 100000, ?int $maxDistance = null){
+	public function __construct(Level $world, Vector3 $startPos, Vector3 $targetPos, ?AxisAlignedBB $boundingBox = null, float $timeout = 1.0, int $maxIterations = 100000, ?int $maxDistance = null){
 		$this->algorithm = new AStar($world, $startPos, $targetPos);
 		$this->timeout = $timeout;
 		$this->maxIterations = $maxIterations;
@@ -37,7 +37,7 @@ class Pathfinder {
 			$this->algorithm->addValidator(new DistanceValidator($priority--, $maxDistance));
 		}
 
-		$this->algorithm->addValidator(new PassableValidator($priority--, new AxisAlignedBB(0, 0, 0, 1, 1, 1)));
+		$this->algorithm->addValidator(new PassableValidator($priority--, $boundingBox ?? new AxisAlignedBB(0, 0, 0, 1, 1, 1)));
 	}
 
 	public function getAlgorithm(): Algorithm{
