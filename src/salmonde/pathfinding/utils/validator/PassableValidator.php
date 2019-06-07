@@ -4,7 +4,6 @@ declare(strict_types = 1);
 namespace salmonde\pathfinding\utils\validator;
 
 use pocketmine\block\Block;
-use pocketmine\block\Solid;
 use pocketmine\math\AxisAlignedBB;
 use salmonde\pathfinding\Algorithm;
 
@@ -18,6 +17,17 @@ class PassableValidator extends Validator {
 	}
 
 	public function isValidBlock(Algorithm $algorithm, Block $block): bool{
-		return !($block instanceof Solid);
+		if($block->isSolid()){
+			return false;
+		}
+
+		$boundingBox = $this->boundingBox->offsetCopy($block->x, $block->y, $block->z);
+		foreach($algorithm->getWorld()->getCollisionBlocks($boundingBox) as $collidingBlock){
+			if($collidingBlock->isSolid()){
+				return false;
+			}
+		}
+
+		return true;
 	}
 }
