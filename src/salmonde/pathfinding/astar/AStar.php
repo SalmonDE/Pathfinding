@@ -127,6 +127,6 @@ class AStar extends Algorithm {
 			}
 		}while(true);
 
-		$this->pathResult = $pathResult;
+		$this->setPathResult($pathResult);
 	}
 }
