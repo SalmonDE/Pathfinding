@@ -3,11 +3,11 @@ declare(strict_types = 1);
 
 namespace salmonde\pathfinding;
 
+use Ds\Vector;
 use pocketmine\block\Block;
 use pocketmine\level\Level;
 use pocketmine\math\Vector3;
 use salmonde\pathfinding\utils\validator\Validator;
-use salmonde\pathfinding\utils\validator\ValidatorHeap;
 
 abstract class Algorithm {
 
@@ -25,7 +25,7 @@ abstract class Algorithm {
 		$this->targetPos = $targetPos;
 		$this->reset();
 
-		$this->validators = new ValidatorHeap();
+		$this->validators = new Vector();
 	}
 
 	public function getWorld(): Level{
@@ -51,10 +51,13 @@ abstract class Algorithm {
 	}
 
 	public function addValidator(Validator $validator): void{
-		$this->validators->insert($validator);
+		$this->validators->push($validator);
+		$this->validators->sort(function(Validator $v1, Validator $v2): int{
+			return $v2->getPriority() - $v1->getPriority();
+		});
 	}
 
-	public function getValidators(): ValidatorHeap{
+	public function getValidators(): ValidatorSequence{
 		return $this->validators;
 	}
 
