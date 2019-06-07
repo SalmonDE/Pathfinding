@@ -71,7 +71,6 @@ class AStar extends Algorithm {
 	}
 
 	public function tick(): void{
-		var_dump([$this->openList, $this->openListHeap, $this->closedList]);
 		$currentNode = $this->openListHeap->extract();
 
 		if($currentNode->equals($this->getTargetPos())){
