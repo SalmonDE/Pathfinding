@@ -62,7 +62,9 @@ class AStar extends Algorithm {
 	}
 
 	public function setTargetPos(Vector3 $targetPos): void{
-		parent::setTargetPos(Node::fromVector3($targetPos));
+		$node = Node::fromVector3($targetPos);
+		$node->setH(0.0);
+		parent::setTargetPos($node);
 	}
 
 	public function calculateEstimatedCost(Vector3 $pos): float{
