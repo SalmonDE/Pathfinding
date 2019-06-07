@@ -11,8 +11,7 @@ class Node extends Vector3 {
 	private $g = PHP_INT_MAX;
 	private $h = PHP_INT_MAX;
 
-	private $successor;
-	private $predecessor;
+	private $predecessor = null;
 
 	public static function fromVector3(Vector3 $pos){
 		return new self($pos->x, $pos->y, $pos->z);
