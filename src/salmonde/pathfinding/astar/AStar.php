@@ -76,8 +76,8 @@ class AStar extends Algorithm {
 		$currentNode = $this->openListHeap->extract();
 
 		if($currentNode->equals($this->getTargetPos())){
-			$this->reset();
 			$this->getTargetPos()->setPredecessor($currentNode);
+			$this->reset();
 			$this->parsePath();
 			return;
 		}
