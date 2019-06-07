@@ -1,0 +1,9 @@
+--- # Poggit-CI Manifest. Open the CI at https://poggit.pmmp.io/ci/SalmonDE/Pathfinding
+branches:
+- master
+projects:
+  Pathfinding:
+    path: ""
+    model: virion
+    type: library
+...
