@@ -5,7 +5,7 @@ namespace salmonde\pathfinding;
 
 use Ds\Vector;
 use pocketmine\block\Block;
-use pocketmine\level\Level;
+use pocketmine\world\World;
 use pocketmine\math\Vector3;
 use salmonde\pathfinding\utils\validator\Validator;
 
@@ -19,7 +19,7 @@ abstract class Algorithm {
 
 	private $validators;
 
-	public function __construct(Level $world, Vector3 $startPos, Vector3 $targetPos){
+	public function __construct(World $world, Vector3 $startPos, Vector3 $targetPos){
 		$this->world = $world;
 		$this->startPos = $startPos;
 		$this->targetPos = $targetPos;
@@ -28,7 +28,7 @@ abstract class Algorithm {
 		$this->validators = new Vector();
 	}
 
-	public function getWorld(): Level{
+	public function getWorld(): World{
 		return $this->world;
 	}
 

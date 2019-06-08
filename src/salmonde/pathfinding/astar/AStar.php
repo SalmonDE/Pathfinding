@@ -4,7 +4,7 @@ declare(strict_types = 1);
 namespace salmonde\pathfinding\astar;
 
 use Ds\Map;
-use pocketmine\level\Level;
+use pocketmine\world\World;
 use pocketmine\math\Vector3;
 use salmonde\pathfinding\Algorithm;
 use salmonde\pathfinding\PathResult;
@@ -21,7 +21,7 @@ class AStar extends Algorithm {
 	private $neighbourSelector;
 	private $costCalculator;
 
-	public function __construct(Level $world, Vector3 $startPos, Vector3 $targetPos){
+	public function __construct(World $world, Vector3 $startPos, Vector3 $targetPos){
 		parent::__construct($world, Node::fromVector3($startPos), Node::fromVector3($targetPos));
 		$this->neighbourSelector = new NeighbourSelectorXYZ();
 		$this->costCalculator = new DefaultCostCalculator();
@@ -35,7 +35,7 @@ class AStar extends Algorithm {
 		$startPos = $this->getStartPos();
 		$startPos->setG(0.0);
 		$startPos->setH($this->calculateEstimatedCost($startPos));
-		$this->openList->put(Level::blockHash($startPos->x, $startPos->y, $startPos->z), $startPos);
+		$this->openList->put(World::blockHash($startPos->x, $startPos->y, $startPos->z), $startPos);
 		$this->openListHeap->insert($startPos);
 	}
 
@@ -86,14 +86,14 @@ class AStar extends Algorithm {
 			return;
 		}
 
-		$hash = Level::blockHash($currentNode->x, $currentNode->y, $currentNode->z);
+		$hash = World::blockHash($currentNode->x, $currentNode->y, $currentNode->z);
 		$this->openList->remove($hash);
 		$this->closedList->put($hash, $currentNode);
 
 		$block = $this->getWorld()->getBlockAt($currentNode->x, $currentNode->y, $currentNode->z);
 
 		foreach($this->getNeighbourSelector()->getNeighbours($block) as $neighbourBlock){
-			if(!$this->isValidBlock($neighbourBlock) or $this->closedList->hasKey($neighbourHash = Level::blockHash($neighbourBlock->x, $neighbourBlock->y, $neighbourBlock->z))){
+			if(!$this->isValidBlock($neighbourBlock) or $this->closedList->hasKey($neighbourHash = World::blockHash($neighbourBlock->x, $neighbourBlock->y, $neighbourBlock->z))){
 				continue;
 			}
 

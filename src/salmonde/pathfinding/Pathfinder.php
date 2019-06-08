@@ -3,7 +3,7 @@ declare(strict_types = 1);
 
 namespace salmonde\pathfinding;
 
-use pocketmine\level\Level;
+use pocketmine\world\World;
 use pocketmine\math\AxisAlignedBB;
 use pocketmine\math\Vector3;
 use salmonde\pathfinding\astar\AStar;
@@ -21,7 +21,7 @@ class Pathfinder {
 	private $startTime;
 	private $timeout;
 
-	public function __construct(Level $world, Vector3 $startPos, Vector3 $targetPos, ?AxisAlignedBB $boundingBox = null, float $timeout = 1.0, int $maxIterations = 100000, ?int $maxDistance = null){
+	public function __construct(World $world, Vector3 $startPos, Vector3 $targetPos, ?AxisAlignedBB $boundingBox = null, float $timeout = 1.0, int $maxIterations = 100000, ?int $maxDistance = null){
 		$this->algorithm = new AStar($world, $startPos, $targetPos);
 		$this->timeout = $timeout;
 		$this->maxIterations = $maxIterations;
