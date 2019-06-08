@@ -21,22 +21,17 @@ class Pathfinder {
 	private $startTime;
 	private $timeout;
 
-	public function __construct(Level $world, Vector3 $startPos, Vector3 $targetPos, ?AxisAlignedBB $boundingBox = null, float $timeout = 1.0, int $maxIterations = 100000, ?int $maxDistance = null){
+	public function __construct(Level $world, Vector3 $startPos, Vector3 $targetPos, ?AxisAlignedBB $boundingBox = null, float $timeout = 1.0, int $maxIterations = 100000){
 		$this->algorithm = new AStar($world, $startPos, $targetPos);
 		$this->timeout = $timeout;
 		$this->maxIterations = $maxIterations;
 
-		$this->addValidators($maxDistance);
+		$this->addDefaultValidators($boundingBox);
 	}
 
-	protected function addValidators(?int $maxDistance): void{
+	protected function addDefaultValidators(?AxisAlignedBB $boundingBox = null): void{
 		$priority = 100;
 		$this->algorithm->addValidator(new InsideWorldValidator($priority--));
-
-		if($maxDistance !== null){
-			$this->algorithm->addValidator(new DistanceValidator($priority--, $maxDistance));
-		}
-
 		$this->algorithm->addValidator(new PassableValidator($priority--, $boundingBox ?? new AxisAlignedBB(0, 0, 0, 1, 1, 1)));
 	}
 
@@ -63,5 +58,9 @@ class Pathfinder {
 
 	public function getPathResult(): ?PathResult{
 		return $this->getAlgorithm()->getPathResult();
+	}
+
+	public function setMaxDistance(int $maxDistance): void{
+		$this->algorithm->addValidator(new DistanceValidator($this->getAlgorithm()->getLowestValidatorPriority() - 1, $maxDistance));
 	}
 }
