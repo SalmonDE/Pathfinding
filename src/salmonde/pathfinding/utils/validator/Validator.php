@@ -18,5 +18,5 @@ abstract class Validator {
 		return $this->priority;
 	}
 
-	abstract public function isValidBlock(Algorithm $algorithm, Block $block): bool;
+	abstract public function isValidBlock(Algorithm $algorithm, Block $block, int $fromSide): bool;
 }

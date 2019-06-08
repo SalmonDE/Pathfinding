@@ -16,7 +16,7 @@ class PassableValidator extends Validator {
 		$this->boundingBox = $boundingBox;
 	}
 
-	public function isValidBlock(Algorithm $algorithm, Block $block): bool{
+	public function isValidBlock(Algorithm $algorithm, Block $block, int $fromSide): bool{
 		if($block->isSolid()){
 			return false;
 		}

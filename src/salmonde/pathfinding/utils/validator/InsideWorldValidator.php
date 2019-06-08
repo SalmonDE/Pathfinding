@@ -8,7 +8,7 @@ use salmonde\pathfinding\Algorithm;
 
 class InsideWorldValidator extends Validator {
 
-	public function isValidBlock(Algorithm $algorithm, Block $block): bool{
+	public function isValidBlock(Algorithm $algorithm, Block $block, int $fromSide): bool{
 		return $algorithm->getWorld()->isInWorld($block->x, $block->y, $block->z);
 	}
 }

@@ -8,6 +8,11 @@ use pocketmine\block\Block;
 class NeighbourSelectorXZ implements NeighbourSelector {
 
 	public function getNeighbours(Block $block): array{
-		return $block->getHorizontalSides();
+		return [
+			Facing::NORTH => $block->getSide(Facing::NORTH),
+			Facing::SOUTH => $block->getSide(Facing::SOUTH),
+			Facing::WEST  => $block->getSide(Facing::WEST),
+			Facing::EAST  => $block->getSide(Facing::EAST)
+		];
 	}
 }

@@ -10,8 +10,8 @@ class NeighbourSelectorY implements NeighbourSelector {
 
 	public function getNeighbours(Block $block): array{
 		return [
-			$block->getSide(Facing::UP),
-			$block->getSide(Facing::DOWN)
+			Facing::UP   => $block->getSide(Facing::UP),
+			Facing::DOWN => $block->getSide(Facing::DOWN)
 		];
 	}
 }
