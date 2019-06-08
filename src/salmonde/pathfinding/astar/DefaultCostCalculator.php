@@ -11,9 +11,9 @@ class DefaultCostCalculator extends CostCalculator {
 		switch($block->getId()){
 			case Block::WATER:
 			case Block::FLOWING_WATER:
-				return 1.5;
-			case Block::COBWEB:
 				return 2.0;
+			case Block::COBWEB:
+				return 3.0;
 			default:
 				return 1.0;
 		}
