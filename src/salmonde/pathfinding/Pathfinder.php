@@ -33,7 +33,7 @@ class Pathfinder {
 	protected function addDefaultValidators(?AxisAlignedBB $boundingBox = null): void{
 		$highestPriority = $this->getAlgorithm()->getHighestValidatorPriority();
 		$this->algorithm->addValidator(new InsideWorldValidator($highestPriority === 0 ? 100 : $highestPriority + 1));
-		$this->algorithm->addValidator(new PassableValidator($this->getAlgorithm()->getLowestValidatorPriority() - 1, $boundingBox ?? new AxisAlignedBB(0, 0, 0, 1, 1, 1)));
+		$this->algorithm->addValidator(new PassableValidator($this->getAlgorithm()->getLowestValidatorPriority() - 1, $boundingBox ?? AxisAlignedBB::one()));
 	}
 
 	public function getAlgorithm(): Algorithm{
