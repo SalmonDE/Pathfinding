@@ -53,13 +53,43 @@ abstract class Algorithm {
 
 	public function addValidator(Validator $validator): void{
 		$this->validators->push($validator);
+		$this->sortValidators();
+	}
+
+	public function removeValidator(Validator $validator): void{
+		$index = $this->getValidators()->find($validator);
+
+		if($index !== false){
+			$this->getValidators()->remove($index);
+			$this->sortValidators();
+		}
+	}
+
+	protected function sortValidators(): void{
 		$this->validators->sort(function(Validator $v1, Validator $v2): int{
 			return $v2->getPriority() - $v1->getPriority();
 		});
 	}
 
-	public function getValidators(): ValidatorSequence{
+	public function getValidators(): Vector{
 		return $this->validators;
+	}
+
+	protected function getValidatorPriorities(): array{
+		$priorities = [];
+		foreach($this->getValidators() as $validator){
+			$priorities[] = $validator->getPriority();
+		}
+
+		return $priorities;
+	}
+
+	public function getHighestValidatorPriority(): int{
+		return max($this->getValidatorPriorities());
+	}
+
+	public function getLowestValidatorPriority(): int{
+		return min($this->getValidatorPriorities());
 	}
 
 	protected function isValidBlock(Block $block): bool{
