@@ -100,9 +100,10 @@ abstract class Algorithm {
 		return min($this->getValidatorPriorities());
 	}
 
-	protected function isValidBlock(Block $block): bool{
-		foreach($this->validators as $side => $validator){
-			if(!$validator->isValidBlock($this, $block, Facing::opposite($side))){
+	protected function isValidBlock(Block $block, int $side): bool{
+		$oppositeSide = Facing::opposite($side);
+		foreach($this->validators as $validator){
+			if(!$validator->isValidBlock($this, $block, $oppositeSide)){
 				return false;
 			}
 		}
