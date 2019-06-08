@@ -9,6 +9,7 @@ use pocketmine\math\Vector3;
 use salmonde\pathfinding\astar\AStar;
 use salmonde\pathfinding\utils\validator\DistanceValidator;
 use salmonde\pathfinding\utils\validator\InsideWorldValidator;
+use salmonde\pathfinding\utils\validator\JumpHeightValidator;
 use salmonde\pathfinding\utils\validator\PassableValidator;
 
 class Pathfinder {
@@ -62,5 +63,9 @@ class Pathfinder {
 
 	public function setMaxDistance(int $maxDistance): void{
 		$this->algorithm->addValidator(new DistanceValidator($this->getAlgorithm()->getLowestValidatorPriority() - 1, $maxDistance));
+	}
+
+	public function setMaxJumpHeight(int $maxJumpHeight): void{
+		$this->algorithm->addValidator(new JumpHeightValidator($this->getAlgorithm()->getLowestValidatorPriority() - 1, $maxJumpHeight));
 	}
 }
