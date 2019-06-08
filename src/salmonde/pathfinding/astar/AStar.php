@@ -92,8 +92,8 @@ class AStar extends Algorithm {
 
 		$block = $this->getWorld()->getBlockAt($currentNode->x, $currentNode->y, $currentNode->z);
 
-		foreach($this->getNeighbourSelector()->getNeighbours($block) as $neighbourBlock){
-			if(!$this->isValidBlock($neighbourBlock) or $this->closedList->hasKey($neighbourHash = World::blockHash($neighbourBlock->x, $neighbourBlock->y, $neighbourBlock->z))){
+		foreach($this->getNeighbourSelector()->getNeighbours($block) as $side => $neighbourBlock){
+			if(!$this->isValidBlock($neighbourBlock, $side) or $this->closedList->hasKey($neighbourHash = World::blockHash($neighbourBlock->x, $neighbourBlock->y, $neighbourBlock->z))){
 				continue;
 			}
 
