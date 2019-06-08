@@ -30,9 +30,9 @@ class Pathfinder {
 	}
 
 	protected function addDefaultValidators(?AxisAlignedBB $boundingBox = null): void{
-		$priority = 100;
-		$this->algorithm->addValidator(new InsideWorldValidator($priority--));
-		$this->algorithm->addValidator(new PassableValidator($priority--, $boundingBox ?? new AxisAlignedBB(0, 0, 0, 1, 1, 1)));
+		$highestPriority = $this->getAlgorithm()->getHighestValidatorPriority();
+		$this->algorithm->addValidator(new InsideWorldValidator($highestPriority === 0 ? 100 : $highestPriority + 1));
+		$this->algorithm->addValidator(new PassableValidator($this->getAlgorithm()->getLowestValidatorPriority() - 1, $boundingBox ?? new AxisAlignedBB(0, 0, 0, 1, 1, 1)));
 	}
 
 	public function getAlgorithm(): Algorithm{
