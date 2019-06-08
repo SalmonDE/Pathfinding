@@ -10,10 +10,10 @@ class NeighbourSelectorXZ implements NeighbourSelector {
 
 	public function getNeighbours(Block $block): array{
 		return [
-			$block->getSide(Facing::NORTH),
-			$block->getSide(Facing::SOUTH),
-			$block->getSide(Facing::WEST),
-			$block->getSide(Facing::EAST)
+			Facing::NORTH => $block->getSide(Facing::NORTH),
+			Facing::SOUTH => $block->getSide(Facing::SOUTH),
+			Facing::WEST  => $block->getSide(Facing::WEST),
+			Facing::EAST  => $block->getSide(Facing::EAST)
 		];
 	}
 }

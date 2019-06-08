@@ -10,8 +10,8 @@ class NeighbourSelectorX implements NeighbourSelector {
 
 	public function getNeighbours(Block $block): array{
 		return [
-			$block->getSide(Facing::WEST),
-			$block->getSide(Facing::EAST)
+			Facing::WEST => $block->getSide(Facing::WEST),
+			Facing::EAST => $block->getSide(Facing::EAST)
 		];
 	}
 }

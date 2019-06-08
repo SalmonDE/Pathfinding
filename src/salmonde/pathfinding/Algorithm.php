@@ -6,6 +6,7 @@ namespace salmonde\pathfinding;
 use Ds\Vector;
 use pocketmine\block\Block;
 use pocketmine\world\World;
+use pocketmine\math\Facing;
 use pocketmine\math\Vector3;
 use salmonde\pathfinding\utils\validator\Validator;
 
@@ -62,8 +63,8 @@ abstract class Algorithm {
 	}
 
 	protected function isValidBlock(Block $block): bool{
-		foreach($this->validators as $validator){
-			if(!$validator->isValidBlock($this, $block)){
+		foreach($this->validators as $side => $validator){
+			if(!$validator->isValidBlock($this, $block, Facing::opposite($side))){
 				return false;
 			}
 		}
