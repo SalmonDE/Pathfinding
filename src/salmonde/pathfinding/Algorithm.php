@@ -84,10 +84,18 @@ abstract class Algorithm {
 	}
 
 	public function getHighestValidatorPriority(): int{
+		if(count($this->getValidators()) === 0){
+			return 0;
+		}
+
 		return max($this->getValidatorPriorities());
 	}
 
 	public function getLowestValidatorPriority(): int{
+		if(count($this->getValidators()) === 0){
+			return 0;
+		}
+
 		return min($this->getValidatorPriorities());
 	}
 
