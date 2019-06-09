@@ -21,7 +21,8 @@ class JumpHeightValidator extends Validator {
 			return true; // This isn't a jump, hence no jump height limit applies
 		}
 
-		for($i = 1; $i <= $this->maxJumpHeight; $i++){
+		$maxDepth = $this->maxJumpHeight + 1;
+		for($i = 1; $i <= $maxDepth; $i++){
 			if($block->getSide(Vector3::SIDE_DOWN, $i)->isSolid()){
 				return true;
 			}
