@@ -15,6 +15,6 @@ class SupportedPositionValidator extends Validator {
 		}
 
 		$down = $block->getSide(Vector3::SIDE_DOWN);
-		return $down->isSolid() or $down->getSide(Vector3::SIDE_DOWN)->isSolid();
+		return $down->isSolid() or $down->getSide($fromSide)->isSolid();
 	}
 }
