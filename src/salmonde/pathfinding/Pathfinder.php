@@ -11,6 +11,7 @@ use salmonde\pathfinding\utils\validator\DistanceValidator;
 use salmonde\pathfinding\utils\validator\InsideWorldValidator;
 use salmonde\pathfinding\utils\validator\JumpHeightValidator;
 use salmonde\pathfinding\utils\validator\PassableValidator;
+use salmonde\pathfinding\utils\validator\SupportedPositionValidator;
 
 class Pathfinder {
 
@@ -67,5 +68,9 @@ class Pathfinder {
 
 	public function setMaxJumpHeight(int $maxJumpHeight): void{
 		$this->algorithm->addValidator(new JumpHeightValidator($this->getAlgorithm()->getLowestValidatorPriority() - 1, $maxJumpHeight));
+	}
+
+	public function setSupportedPositionValidator(): void{
+		$this->algorithm->addValidator(new SupportedPositionValidator($this->getAlgorithm()->getLowestValidatorPriority() - 1));
 	}
 }
