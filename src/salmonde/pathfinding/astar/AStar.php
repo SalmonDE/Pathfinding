@@ -120,7 +120,7 @@ class AStar extends Algorithm {
 
 	protected function parsePath(): void{
 		$pathResult = new PathResult();
-		$currentNode = $this->getTargetPos()->getPredecessor(); // prevent duplicate entry
+		$currentNode = $this->getTargetPos();
 
 		do{
 			$currentNode = $currentNode->getPredecessor();
