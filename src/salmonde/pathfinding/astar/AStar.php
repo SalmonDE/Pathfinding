@@ -93,17 +93,18 @@ class AStar extends Algorithm {
 		$block = $this->getWorld()->getBlockAt($currentNode->x, $currentNode->y, $currentNode->z);
 
 		foreach($this->getNeighbourSelector()->getNeighbours($block) as $side => $neighbourBlock){
-			if(!$this->isValidBlock($neighbourBlock, $side) or $this->closedList->hasKey($neighbourHash = World::blockHash($neighbourBlock->x, $neighbourBlock->y, $neighbourBlock->z))){
+			$neighbourBlockPos = $neighbourBlock->getPos();
+			if(!$this->isValidBlock($neighbourBlock, $side) or $this->closedList->hasKey($neighbourHash = World::blockHash($neighbourBlockPos->x, $neighbourBlockPos->y, $neighbourBlockPos->z))){
 				continue;
 			}
 
 			$inOpenList = $this->openList->hasKey($neighbourHash);
-			$neighbourNode = $inOpenList ? $this->openList->get($neighbourHash) : Node::fromVector3($neighbourBlock);
+			$neighbourNode = $inOpenList ? $this->openList->get($neighbourHash) : Node::fromVector3($neighbourBlockPos);
 
 			$cost = $this->costCalculator->getCost($neighbourBlock);
 			if(!$inOpenList or $currentNode->getG() + $cost < $neighbourNode->getG()){
 				$neighbourNode->setG($currentNode->getG() + $cost);
-				$neighbourNode->setH($this->calculateEstimatedCost($neighbourBlock));
+				$neighbourNode->setH($this->calculateEstimatedCost($neighbourBlockPos));
 				$neighbourNode->setPredecessor($currentNode);
 
 				if(!$inOpenList){
