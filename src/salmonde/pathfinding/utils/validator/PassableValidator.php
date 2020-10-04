@@ -21,7 +21,8 @@ class PassableValidator extends Validator {
 			return false;
 		}
 
-		$boundingBox = $this->boundingBox->offsetCopy($block->x, $block->y, $block->z);
+		$blockPos = $block->getPos();
+		$boundingBox = $this->boundingBox->offsetCopy($blockPos->x, $blockPos->y, $blockPos->z);
 		foreach($algorithm->getWorld()->getCollisionBlocks($boundingBox) as $collidingBlock){
 			if($collidingBlock->isSolid()){
 				return false;
