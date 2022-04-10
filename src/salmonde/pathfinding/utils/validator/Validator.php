@@ -4,11 +4,18 @@ declare(strict_types = 1);
 namespace salmonde\pathfinding\utils\validator;
 
 use pocketmine\block\Block;
-use salmonde\pathfinding\Algorithm;
+use pocketmine\world\World;
+use salmonde\pathfinding\PathData;
+use salmonde\pathfinding\utils\ChunkManager;
 
 abstract class Validator {
 
-	private $priority;
+	private int $priority;
+
+	protected World|ChunkManager $chunkManager;
+	protected PathData $pathData;
+
+	public bool $allowInvalid = false;
 
 	public function __construct(int $priority){
 		$this->priority = $priority;
@@ -18,5 +25,10 @@ abstract class Validator {
 		return $this->priority;
 	}
 
-	abstract public function isValidBlock(Algorithm $algorithm, Block $block, int $fromSide): bool;
+	public function init(World|ChunkManager $chunkManager, PathData $pathData): void{
+		$this->chunkManager = $chunkManager;
+		$this->pathData = $pathData;
+	}
+
+	abstract public function isValidBlock(Block $block, array $fromSides): bool;
 }
