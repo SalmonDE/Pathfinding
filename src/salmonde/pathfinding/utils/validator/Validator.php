@@ -7,6 +7,7 @@ use pocketmine\block\Block;
 use pocketmine\world\World;
 use salmonde\pathfinding\PathData;
 use salmonde\pathfinding\utils\ChunkManager;
+use salmonde\pathfinding\utils\node\Node;
 
 abstract class Validator {
 
@@ -30,5 +31,5 @@ abstract class Validator {
 		$this->pathData = $pathData;
 	}
 
-	abstract public function isValidBlock(Block $block, array $fromSides): bool;
+	abstract public function isValidNode(Node $node, Block $block, array $fromSides): bool;
 }

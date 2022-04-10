@@ -4,6 +4,7 @@ declare(strict_types = 1);
 namespace salmonde\pathfinding\utils\validator;
 
 use pocketmine\block\Block;
+use salmonde\pathfinding\utils\node\Node;
 
 class DistanceValidator extends Validator {
 
@@ -14,7 +15,7 @@ class DistanceValidator extends Validator {
 		$this->maxDistanceSquared = $maxDistance ** 2;
 	}
 
-	public function isValidBlock(Block $block, array $fromSides): bool{
-		return $this->pathData->getStartNode()->distanceSquared($block->getPosition()) <= $this->maxDistanceSquared;
+	public function isValidNode(Node $node, Block $block, array $fromSides): bool{
+		return $this->pathData->getStartNode()->distanceSquared($node) <= $this->maxDistanceSquared;
 	}
 }

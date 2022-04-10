@@ -81,7 +81,7 @@ class AStar extends BlockingAlgorithm {
 			unset($sideComponentsIndex, $side);
 
 			foreach($this->validatorManager->yieldValidators() as $validator){
-				if(!$validator->isValidBlock($block, $fromSides)){
+				if(!$validator->isValidNode($currentNode, $block, $fromSides)){
 					if($validator->allowInvalid){
 						$cost = $this->costCalculator->getInvalidCost($block, $fromSides);
 					}else{

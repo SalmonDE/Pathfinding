@@ -5,6 +5,7 @@ namespace salmonde\pathfinding\utils\validator;
 
 use pocketmine\block\Block;
 use pocketmine\math\AxisAlignedBB;
+use salmonde\pathfinding\utils\node\Node;
 use salmonde\pathfinding\utils\selector\SuccessorSelector;
 
 class PassableValidator extends Validator {
@@ -16,7 +17,7 @@ class PassableValidator extends Validator {
 		$this->boundingBox = $boundingBox;
 	}
 
-	public function isValidBlock(Block $block, array $fromSides): bool{
+	public function isValidNode(Node $node, Block $block, array $fromSides): bool{
 		if($block->isSolid()){
 			return false;
 		}

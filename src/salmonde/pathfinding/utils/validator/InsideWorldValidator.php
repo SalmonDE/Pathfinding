@@ -4,11 +4,11 @@ declare(strict_types = 1);
 namespace salmonde\pathfinding\utils\validator;
 
 use pocketmine\block\Block;
+use salmonde\pathfinding\utils\node\Node;
 
 class InsideWorldValidator extends Validator {
 
-	public function isValidBlock(Block $block, array $fromSides): bool{
-		$blockPos = $block->getPosition();
-		return $this->chunkManager->isInWorld($blockPos->x, $blockPos->y, $blockPos->z);
+	public function isValidNode(Node $node, Block $block, array $fromSides): bool{
+		return $this->chunkManager->isInWorld($node->x, $node->y, $node->z);
 	}
 }
