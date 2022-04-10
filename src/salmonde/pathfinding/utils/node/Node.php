@@ -9,7 +9,7 @@ abstract class Node extends Vector3 {
 
 	public ?Node $predecessor = null;
 
-	public static function fromVector3(Vector3 $pos){
+	public static function fromVector3(Vector3 $pos): static{
 		return new static($pos->x, $pos->y, $pos->z);
 	}
 
