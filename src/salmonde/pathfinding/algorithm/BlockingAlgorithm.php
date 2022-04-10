@@ -14,17 +14,17 @@ abstract class BlockingAlgorithm extends Algorithm {
 	public float $timeout = 0.0;
 
 	protected function checkTime(): bool{
-		return $this->timeout === 0.0 or microtime(true) - $this->startTime < $this->timeout;
+		return $this->timeout === 0.0 || microtime(true) - $this->startTime < $this->timeout;
 	}
 
 	protected function checkIterations(): bool{
-		return $this->maxIterations === 0 or $this->iterations < $this->maxIterations;
+		return $this->maxIterations === 0 || $this->iterations < $this->maxIterations;
 	}
 
 	public function findPath(): void{
 		$this->startTime = microtime(true);
 
-		while(!$this->isFinished() and $this->checkTime() and $this->checkIterations()){
+		while(!$this->isFinished() && $this->checkTime() && $this->checkIterations()){
 			$this->tick();
 		}
 	}

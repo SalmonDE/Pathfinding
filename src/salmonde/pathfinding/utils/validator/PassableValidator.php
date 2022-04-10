@@ -51,7 +51,7 @@ class PassableValidator extends Validator {
 			for($x = $minX; $x <= $maxX; ++$x){
 				for($y = $minY; $y <= $maxY; ++$y){
 					$block = $this->chunkManager->getBlockAt($x, $y, $z);
-					if($block->isSolid() and $block->collidesWithBB($bb)){
+					if($block->isSolid() && $block->collidesWithBB($bb)){
 						return false;
 					}
 				}

@@ -107,7 +107,7 @@ class AStar extends BlockingAlgorithm {
 	}
 
 	public function isFinished(): bool{
-		return $this->pathData->getTargetNode()->predecessor instanceof AStarNode or $this->openListHeap->isEmpty();
+		return $this->pathData->getTargetNode()->predecessor instanceof AStarNode || $this->openListHeap->isEmpty();
 	}
 
 	protected function parsePath(): void{

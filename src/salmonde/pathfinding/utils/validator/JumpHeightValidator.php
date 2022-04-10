@@ -16,7 +16,7 @@ class JumpHeightValidator extends Validator {
 	}
 
 	public function isValidBlock(Block $block, array $fromSides): bool{
-		if(count($fromSides) !== 1 or $fromSides[0] !== Facing::DOWN){
+		if(count($fromSides) !== 1 || $fromSides[0] !== Facing::DOWN){
 			return true; // This isn't a jump, hence no jump height limit applies
 		}
 
